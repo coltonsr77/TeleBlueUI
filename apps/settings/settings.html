@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TeleBlue Settings Menu</title>
+<style>
+    /* General styling */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #000; /* Black background */
+        color: #fff; /* White text */
+    }
+
+    /* Header styling */
+    header {
+        background-color: #111; /* Slightly lighter black for contrast */
+        padding: 15px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        border-bottom: 2px solid #444; /* Divider for header */
+    }
+
+    /* Back button styling */
+    .back-button {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background-color: #444; /* Dark gray button background */
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .back-button:hover {
+        background-color: #666; /* Lighter gray on hover */
+    }
+
+    /* Main content styling */
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+        padding-bottom: 40px;
+    }
+
+    /* Button styling */
+    .settings-button {
+        background-color: #222; /* Dark gray button */
+        color: #fff;
+        border: none;
+        padding: 15px 30px;
+        margin: 10px;
+        font-size: 18px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 80%; /* Button width to adapt for responsiveness */
+        max-width: 400px; /* Cap the width for larger screens */
+        text-align: center;
+    }
+
+    .settings-button:hover {
+        background-color: #444; /* Slightly lighter gray on hover */
+    }
+</style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header id="menu-header">
+        TeleBlue Settings Menu
+        <button class="back-button" onclick="goBack()">Back</button>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <button class="settings-button" onclick="navigateTo('system-info.html')">System Info</button>
+        <button class="settings-button" onclick="navigateTo('general-settings.html')">General Settings</button>
+        <button class="settings-button" onclick="navigateTo('dump-saved-data.html')">Dump Saved Data</button>
+        <button class="settings-button" onclick="navigateTo('troubleshooting.html')">Troubleshooting</button>
+        <button class="settings-button" onclick="navigateTo('val-configuration.html')">VAL Configuration</button>
+    </main>
+
+    <!-- JavaScript for Navigation and secret access -->
+    <script>
+        // Navigate to previous page
+        function goBack() {
+            window.history.back();
+        }
+
+        // Navigate to specific pages inside the pages/ folder
+        // (keeps the buttons using short names like 'system-info.html')
+        function navigateTo(page) {
+            // If this menu file sits at apps/settings/, pages are in apps/settings/pages/
+            window.location.href = 'pages/' + page;
+        }
+
+        // SECRET ACCESS: Konami code and long-press header
+        (function() {
+            var konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+            var buffer = [];
+            window.addEventListener('keydown', function(e){
+                var key = e.key;
+                buffer.push(key);
+                if (buffer.length > konami.length) buffer.shift();
+                if (buffer.join(',') === konami.join(',')) {
+                    // navigate to developer secret page
+                    window.location.href = 'pages/developer-secret.html';
+                }
+            });
+
+            // long-press the header for 1.5s to open developer menu
+            var header = document.getElementById('menu-header');
+            var pressTimer = null;
+            header.addEventListener('mousedown', startPress);
+            header.addEventListener('touchstart', startPress);
+            header.addEventListener('mouseup', cancelPress);
+            header.addEventListener('mouseleave', cancelPress);
+            header.addEventListener('touchend', cancelPress);
+
+            function startPress(e) {
+                cancelPress();
+                pressTimer = setTimeout(function(){
+                    window.location.href = 'pages/developer-secret.html';
+                }, 1500);
+            }
+            function cancelPress() {
+                if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; }
+            }
+        })();
+    </script>
+</body>
+</html>

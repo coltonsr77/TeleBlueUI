@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Troubleshooting - TeleBlue</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header>
+        Troubleshooting
+        <button class="back-button" onclick="goBack()">Back</button>
+    </header>
+    <main>
+        <div class="content-box">
+            <h2>Troubleshooting</h2>
+            <p>Helpful tips and diagnostics (placeholders).</p>
+            <button class="settings-button" onclick="runDiagnostics()">Run Diagnostics</button>
+            <div id="diag-output" style="margin-top:12px; color:#ddd;">No diagnostics run yet.</div>
+        </div>
+    </main>
+    <script>
+        function goBack(){ window.history.back(); }
+        function runDiagnostics(){ document.getElementById('diag-output').textContent = 'Diagnostics OK (placeholder).'; }
+    </script>
+</body>
+</html>

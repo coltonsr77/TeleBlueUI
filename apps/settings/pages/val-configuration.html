@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>VAL Configuration - TeleBlue</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header>
+        VAL Configuration
+        <button class="back-button" onclick="goBack()">Back</button>
+    </header>
+    <main>
+        <div class="content-box">
+            <h2>VAL Configuration</h2>
+            <p>Settings related to VAL (placeholder).</p>
+            <label>VAL mode: <select><option>Auto</option><option>Manual</option></select></label>
+            <br/><br/>
+            <button class="settings-button" onclick="saveVal()">Save</button>
+        </div>
+    </main>
+    <script>
+        function goBack(){ window.history.back(); }
+        function saveVal(){ alert('VAL configuration saved (placeholder)'); }
+    </script>
+</body>
+</html>

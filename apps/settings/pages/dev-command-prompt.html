@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Command Prompt - Developer</title>
+</head>
+<body>
+    <h1>Command Prompt</h1>
+    <p></p>
+    <div id="output" style="white-space:pre-wrap;font-family:monospace;background:#eee;padding:8px;border:1px solid #ccc;max-height:300px;overflow:auto;"></div>
+    <form onsubmit="runCommand(event)">
+        <input id="cmd" autocomplete="off" style="width:70%" />
+        <button type="submit">Run</button>
+    </form>
+    <p><a href="developer-secret.html">Back</a></p>
+    <script>
+        function runCommand(e){
+            e.preventDefault();
+            var cmd = document.getElementById('cmd').value.trim();
+            if(!cmd) return;
+            var out = document.getElementById('output');
+            out.textContent += '> ' + cmd + '\n' + 'Command execution is disabled in this UI (placeholder).\n';
+            out.scrollTop = out.scrollHeight;
+            document.getElementById('cmd').value = '';
+        }
+    </script>
+</body>
+</html>

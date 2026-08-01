@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8" />
+
+<style id="webmakerstyle">
+
+</style>
+<body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Channel Guide</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #000;
+        }
+
+        /* Back Button */
+        #back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 15px;
+            background-color: #4682b4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        #back-button:hover {
+            background-color: #5f9ea0;
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Search Bar */
+        #search-bar {
+            width: 60%;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #4682b4;
+            border-radius: 5px;
+        }
+
+        /* Video Player Section */
+        #broadcast-player {
+            width: 80%;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #broadcast-player video {
+            width: 100%;
+            height: 360px;
+            border: 2px solid #4682b4;
+            border-radius: 5px;
+        }
+
+        #current-info {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Channel Buttons Section */
+        #channel-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .channel-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 150px;
+            height: 120px;
+            margin: 10px;
+            background-color: #4682b4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .channel-button img {
+            max-width: 50px;
+            max-height: 50px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        .channel-button:hover {
+            background-color: #5f9ea0;
+        }
+
+        /* Hidden class for search filtering */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <a id="back-button" href="../../home.html">Back</a>
+
+    <div class="container">
+        <!-- Search Bar -->
+        <input id="search-bar" type="text" placeholder="Search channels..." oninput="filterChannels()">
+
+        <!-- Broadcasting Video Player Section -->
+        <div id="broadcast-player">
+            <h2>Now Playing</h2>
+            <video id="tv-video" controls autoplay></video>
+            <div id="current-info">
+                <span id="current-channel-name">No Channel Selected</span> - <span id="current-show-name">Select a Channel</span>
+            </div>
+        </div>
+
+        <!-- Channel Buttons Section -->
+        <div id="channel-buttons">
+            <!-- Dynamically generated buttons will go here -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js"></script>
+    <script>
+        // Function to play a selected channel
+        function playChannel(url, channelName) {
+            const video = document.getElementById("tv-video");
+            const channelNameElement = document.getElementById("current-channel-name");
+            const showNameElement = document.getElementById("current-show-name");
+
+            // Update the video source
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(video);
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = url;
+            } else {
+                alert('HLS not supported in your browser.');
+            }
+
+            // Update the displayed channel information
+            channelNameElement.textContent = channelName;
+            showNameElement.textContent = "Live Stream";
+        }
+
+        // Function to dynamically load channel buttons
+        async function loadChannels() {
+            const channelButtonsContainer = document.getElementById('channel-buttons');
+
+            try {
+                // Fetch the channel files from the "apps/channel guide" directory
+                const response = await fetch('https://api.github.com/repos/NoelHacker69/TeleBlueRecreation/contents/apps/channel%20guide');
+                const channels = await response.json();
+
+                channels.forEach(channel => {
+                    if (channel.name.endsWith('.m3u8')) {
+                        const button = document.createElement('button');
+                        button.className = 'channel-button';
+                        button.innerHTML = `
+                            <img src="https://via.placeholder.com/50" alt="${channel.name} Logo">
+                            <span>${channel.name.replace('.m3u8', '')}</span>
+                        `;
+                        button.onclick = () => playChannel(`https://raw.githubusercontent.com/NoelHacker69/TeleBlueRecreation/main/apps/channel%20guide/${channel.name}`, channel.name.replace('.m3u8', ''));
+                        channelButtonsContainer.appendChild(button);
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading channels:', error);
+            }
+        }
+
+        // Function to filter channels based on search input
+        function filterChannels() {
+            const searchTerm = document.getElementById('search-bar').value.toLowerCase();
+            const buttons = document.querySelectorAll('.channel-button');
+
+            buttons.forEach(button => {
+                const channelName = button.querySelector('span').textContent.toLowerCase();
+                if (channelName.includes(searchTerm)) {
+                    button.classList.remove('hidden');
+                } else {
+                    button.classList.add('hidden');
+                }
+            });
+        }
+
+        // Load channels on page load
+        document.addEventListener('DOMContentLoaded', loadChannels);
+    </script>
+</body>
+</html>
+
+
+</body>
+</html>
