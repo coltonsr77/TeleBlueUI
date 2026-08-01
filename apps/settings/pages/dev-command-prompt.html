@@ -20,7 +20,7 @@
             var cmd = document.getElementById('cmd').value.trim();
             if(!cmd) return;
             var out = document.getElementById('output');
-            out.textContent += '> ' + cmd + '\n' + 'Command execution is disabled in this UI (placeholder).\n';
+            out.textContent += '> ' + cmd + '\n' + 'Command execution is disabled in this UI.\n';
             out.scrollTop = out.scrollHeight;
             document.getElementById('cmd').value = '';
         }
