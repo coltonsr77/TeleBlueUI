@@ -221,7 +221,7 @@
         weatherInfo.innerHTML = `
           <p>${data.name}</p>
           <p>${data.weather[0].description}</p>
-          <p>${data.main.temp} °F</p>
+          <p>${data.main.temp} °C</p>
         `;
       } catch (error) {
         weatherInfo.innerHTML = `<p>Error: ${error.message}</p>`;
