@@ -1,7 +1,7 @@
 {
   "VAL": {
-    "name": "Virtual Analysis Line"
-    "description": "A tool for analyzing network or signal quality and simulating data flows."
+    "name": "Virtual Analysis Line",
+    "description": "A tool for analyzing network or signal quality and simulating data flows.",
     "functions": [
       {
         "name": "SignalQualityAnalysis",
