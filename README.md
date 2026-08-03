@@ -2,7 +2,7 @@
 
 Website: https://coltonsr77.github.io/TeleBlueUI/
 
-Report bugs on https://github.com/coltonsr77/TeleBlueUI/Issues
+Report bugs on https://github.com/coltonsr77/TeleBlueUI/issues
 
 Latest Version: 0.4.2
 
