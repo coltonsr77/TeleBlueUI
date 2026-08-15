@@ -1,11 +1,4 @@
 <!DOCTYPE html>
-<html>
-<meta charset="UTF-8" />
-
-<style id="webmakerstyle">
-
-</style>
-<body>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -176,14 +169,17 @@
                 const channels = await response.json();
 
                 channels.forEach(channel => {
-                    if (channel.name.endsWith('.m3u8')) {
+                    if (channel.name && channel.name.endsWith('.m3u8')) {
                         const button = document.createElement('button');
                         button.className = 'channel-button';
+                        const channelLabel = channel.name.replace('.m3u8', '');
+                        // Use a simple label instead of a potentially-broken remote image
                         button.innerHTML = `
-                            <img src="https://1000logos.net/mediatv/" alt="${channel.name} Logo">
-                            <span>${channel.name.replace('.m3u8', '')}</span>
+                            <div style="font-size:24px; font-weight:700;">▶</div>
+                            <span>${channelLabel}</span>
                         `;
-                        button.onclick = () => playChannel(`https://raw.githubusercontent.com/coltonsr77/TeleBlueUI/main/apps/Cguide/${channel.name}`, channel.name.replace('.m3u8', ''));
+                        const srcUrl = `https://raw.githubusercontent.com/coltonsr77/TeleBlueUI/main/apps/Cguide/${encodeURIComponent(channel.name)}`;
+                        button.onclick = () => playChannel(srcUrl, channelLabel);
                         channelButtonsContainer.appendChild(button);
                     }
                 });
@@ -210,8 +206,5 @@
         // Load channels on page load
         document.addEventListener('DOMContentLoaded', loadChannels);
     </script>
-</body>
-</html>
-
-</body>
-</html>
+    </body>
+    </html>
