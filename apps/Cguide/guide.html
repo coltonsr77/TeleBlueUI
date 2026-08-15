@@ -180,7 +180,7 @@
                         const button = document.createElement('button');
                         button.className = 'channel-button';
                         button.innerHTML = `
-                            <img src="https://1000logos.net/tag/tv-series/" alt="${channel.name} Logo">
+                            <img src="https://1000logos.net/mediatv/" alt="${channel.name} Logo">
                             <span>${channel.name.replace('.m3u8', '')}</span>
                         `;
                         button.onclick = () => playChannel(`https://raw.githubusercontent.com/coltonsr77/TeleBlueUI/main/apps/Cguide/${channel.name}`, channel.name.replace('.m3u8', ''));
