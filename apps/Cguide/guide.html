@@ -171,8 +171,8 @@
             const channelButtonsContainer = document.getElementById('channel-buttons');
 
             try {
-                // Fetch the channel files from the "apps/channel guide" directory
-                const response = await fetch('https://api.github.com/repos/NoelHacker69/TeleBlueRecreation/contents/apps/channel%20guide');
+                // Fetch the channel files from the "apps/Cguide" directory
+                const response = await fetch('https://api.github.com/repos/coltonsr77/TeleBlueUI/contents/apps/Cguide');
                 const channels = await response.json();
 
                 channels.forEach(channel => {
@@ -183,7 +183,7 @@
                             <img src="https://via.placeholder.com/50" alt="${channel.name} Logo">
                             <span>${channel.name.replace('.m3u8', '')}</span>
                         `;
-                        button.onclick = () => playChannel(`https://raw.githubusercontent.com/NoelHacker69/TeleBlueRecreation/main/apps/channel%20guide/${channel.name}`, channel.name.replace('.m3u8', ''));
+                        button.onclick = () => playChannel(`https://raw.githubusercontent.com/coltonsr77/TeleBlueUI/main/apps/Cguide/${channel.name}`, channel.name.replace('.m3u8', ''));
                         channelButtonsContainer.appendChild(button);
                     }
                 });
@@ -212,7 +212,6 @@
     </script>
 </body>
 </html>
-
 
 </body>
 </html>
