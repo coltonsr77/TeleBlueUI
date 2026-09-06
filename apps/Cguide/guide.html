@@ -164,8 +164,8 @@
             const channelButtonsContainer = document.getElementById('channel-buttons');
 
             try {
-                // Fetch the channel files from the "apps/Cguide" directory
-                const response = await fetch('https://api.github.com/repos/coltonsr77/TeleBlueUI/contents/apps/Cguide');
+                // Fetch the channel files from the "apps/CGuide" directory
+                const response = await fetch('https://api.github.com/repos/coltonsr77/TeleBlueUI/contents/apps/CGuide');
                 const channels = await response.json();
 
                 channels.forEach(channel => {
@@ -178,7 +178,7 @@
                             <div style="font-size:24px; font-weight:700;">▶</div>
                             <span>${channelLabel}</span>
                         `;
-                        const srcUrl = `https://raw.githubusercontent.com/coltonsr77/TeleBlueUI/main/apps/Cguide/${encodeURIComponent(channel.name)}`;
+                        const srcUrl = `https://raw.githubusercontent.com/coltonsr77/TeleBlueUI/main/apps/CGuide/${encodeURIComponent(channel.name)}`;
                         button.onclick = () => playChannel(srcUrl, channelLabel);
                         channelButtonsContainer.appendChild(button);
                     }
