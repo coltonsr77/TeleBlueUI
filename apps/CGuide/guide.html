@@ -137,13 +137,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/hls.js"></script>
     <script>
-        // Function to play a selected channel
+        // Function to play a selected channel.
         function playChannel(url, channelName) {
             const video = document.getElementById("tv-video");
             const channelNameElement = document.getElementById("current-channel-name");
             const showNameElement = document.getElementById("current-show-name");
 
-            // Update the video source
+            // Update the video source.
             if (Hls.isSupported()) {
                 const hls = new Hls();
                 hls.loadSource(url);
@@ -154,17 +154,17 @@
                 alert('HLS not supported in your browser.');
             }
 
-            // Update the displayed channel information
+            // Update the displayed channel information.
             channelNameElement.textContent = channelName;
             showNameElement.textContent = "Live Stream";
         }
 
-        // Function to dynamically load channel buttons
+        // Function to dynamically load channel buttons.
         async function loadChannels() {
             const channelButtonsContainer = document.getElementById('channel-buttons');
 
             try {
-                // Fetch the channel files from the "apps/CGuide" directory
+                // Fetch the channel files from the "apps/CGuide" directory.
                 const response = await fetch('https://api.github.com/repos/coltonsr77/TeleBlueUI/contents/apps/CGuide');
                 const channels = await response.json();
 
@@ -173,7 +173,7 @@
                         const button = document.createElement('button');
                         button.className = 'channel-button';
                         const channelLabel = channel.name.replace('.m3u8', '');
-                        // Use a simple label instead of a potentially-broken remote image
+                        // Use a simple label instead of a potentially-broken remote image.
                         button.innerHTML = `
                             <div style="font-size:24px; font-weight:700;">▶</div>
                             <span>${channelLabel}</span>
@@ -188,7 +188,7 @@
             }
         }
 
-        // Function to filter channels based on search input
+        // Function to filter channels based on search input.
         function filterChannels() {
             const searchTerm = document.getElementById('search-bar').value.toLowerCase();
             const buttons = document.querySelectorAll('.channel-button');
@@ -203,8 +203,9 @@
             });
         }
 
-        // Load channels on page load
+        // Load channels on page load.
         document.addEventListener('DOMContentLoaded', loadChannels);
     </script>
     </body>
+    
     </html>
